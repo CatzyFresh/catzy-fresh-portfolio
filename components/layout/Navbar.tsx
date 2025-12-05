@@ -20,7 +20,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // In the future you can switch this based on theme (dark/light)
+  // Later you can switch this based on theme for light/dark variants
   const logoSrc = "/images/logo/catzy-fresh-icon.png";
 
   return (
@@ -28,12 +28,12 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:py-4">
         {/* Left: Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="h-8 w-8 flex items-center justify-center overflow-hidden rounded-lg border border-slate-700 bg-slate-900">
+          <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg border border-teal-400/70 bg-slate-950 shadow-[0_0_12px_rgba(45,212,191,0.35)]">
             <Image
               src={logoSrc}
               alt="Catzy Fresh logo"
-              width={32}
-              height={32}
+              width={24}
+              height={24}
               className="object-contain"
             />
           </div>
