@@ -1,26 +1,182 @@
 @import "tailwindcss";
 
+/* --------------------------------------------------------------
+   CATZY FRESH THEME TOKENS (Tailwind v4 @theme)
+   All locked-in design system values live here.
+-------------------------------------------------------------- */
+@theme {
+  /* TYPOGRAPHY TOKENS */
+
+  /* Font families */
+  --font-display: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif; /* Display, H1, H2 */
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif; /* Body, labels, buttons */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+  /* Font sizes (design tokens) */
+  --text-display: 4.5rem;   /* 72px – big hero titles */
+  --text-h1: 3rem;          /* 48px – section titles / hero text */
+  --text-h2: 2rem;          /* 32px – secondary section titles / card headers */
+  --text-body: 1.125rem;    /* 18px – main paragraphs */
+  --text-body-sm: 0.875rem; /* 14px – labels, metadata, small text */
+  --text-button: 1rem;      /* 16px – CTA buttons */
+
+  /* Map Tailwind defaults to your body sizes */
+  --text-base: var(--text-body);     /* `text-base` = 18px body */
+  --text-sm: var(--text-body-sm);    /* `text-sm` = 14px body small */
+
+  /* BRAND COLOR TOKENS */
+
+  --color-cf-black: #0d0d0d;       /* Main background */
+  --color-cf-dark-grey: #111111;   /* Section contrast background */
+  --color-cf-grey-text: #a8a8a8;   /* Secondary text / metadata */
+  --color-cf-white: #ffffff;       /* Primary text / key surfaces */
+  --color-cf-teal: #11b3b6;        /* Actions / links / highlights */
+  --color-cf-teal-glow: #11b4b6;   /* Glow accent (outer halo) */
+  --color-cf-light-grey: #f5f5f5;  /* Light surfaces (rare use) */
+
+  /* You still get standard Tailwind colors, this just adds CF-* variants */
+
+  /* EFFECT / SHADOW TOKENS */
+
+  /* Signature neon teal glow – two layered shadows */
+  --shadow-neon-teal: 0 0 25px rgba(17, 179, 182, 0.6),
+    0 0 40px rgba(17, 179, 182, 0.35);
+
+  /* Soft card shadow for elevation on dark backgrounds */
+  --shadow-soft-card: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+  /* Optional layout token */
+  --container-2xl: 80rem;
+}
+
+/* --------------------------------------------------------------
+   BASE BROWSER / RESET STYLES
+   Keep this minimal – layout & components use utilities.
+-------------------------------------------------------------- */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);          /* Inter */
+  font-size: var(--text-body);            /* 18px body */
+  background-color: var(--color-cf-black);
+  color: var(--color-cf-white);
+}
+
+/* Media elements responsive by default */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Basic link behavior – styling via utilities */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Buttons inherit type, but typography is governed by tokens */
+button {
+  border: none;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------
+   TOKEN-ALIGNED ELEMENT STYLES
+   These enforce your UX hierarchy without @apply components.
+-------------------------------------------------------------- */
+
+/* Display heading (use via .heading-display when needed) */
+.heading-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-display);
+  line-height: 1.05;
+}
+
+/* H1 / H2 tokens applied to raw elements for consistency */
+h1,
+.heading-h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-h1);
+  line-height: 1.1;
+}
+
+h2,
+.heading-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-h2);
+  line-height: 1.2;
+}
+
+/* Body defaults (can still override with utilities if needed) */
+p,
+.body-text {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-body);
+}
+
+.small-text {
+  font-size: var(--text-body-sm);
+}
+
+/* Button text token: applies to <button> and explicit .btn-text use */
+button,
+.btn-text {
+  font-family: var(--font-sans);
+  font-weight: 600; /* Semi-bold */
+  font-size: var(--text-button);
+}
+
+/* --------------------------------------------------------------
+   LIGHT HELPER CLASSES (still utility-aligned)
+-------------------------------------------------------------- */
+
+/* Shell for max-width layout; combine with Tailwind spacing utilities */
+.page-shell {
+  max-width: var(--container-2xl);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+/* Simple divider aligned with your dark-grey token */
+.separator {
+  border-color: var(--color-cf-dark-grey);
 }
